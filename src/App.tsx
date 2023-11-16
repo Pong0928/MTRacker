@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import Select from 'react-select';
 import './App.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import 'leaflet-defaulticon-compatibility';
-import { LatLngExpression, LatLngTuple } from 'leaflet';
+import { LatLngTuple } from 'leaflet';
 import mtrLoction from '../src/json/mtr_location.json'; 
 import NextStation from './component/NearestStation';
 import StatinoInformation from './component/StationInformation';
