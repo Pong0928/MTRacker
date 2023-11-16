@@ -1,0 +1,16 @@
+[
+    {
+        "line": "AEL",
+        "sta": "HOK",
+        "name": "Hong Kong",
+        "latitude": 22.2846755,
+        "longitude": 114.1580141
+    },
+    {
+        "line": "TCL",
+        "sta": "KOW",
+        "name": "Kowloon",
+        "latitude": 22.3042874,
+        "longitude": 114.1613137
+    }
+]
