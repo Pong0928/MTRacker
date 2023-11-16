@@ -1,16 +1,106 @@
 [
     {
         "line": "AEL",
+        "line_name": "Airport Express",
         "sta": "HOK",
-        "name": "Hong Kong",
+        "sta_name": "Hong Kong",
+        "latitude": 22.2846755,
+        "longitude": 114.1580141
+    },
+    {
+        "line": "AEL",
+        "line_name": "Airport Express",
+        "sta": "KOW",
+        "sta_name": "Kowloon",
+        "latitude": 22.3042874,
+        "longitude": 114.1613137
+    },
+    {
+        "line": "AEL",
+        "line_name": "Airport Express",
+        "sta": "TSY",
+        "sta_name": "Tsing Yi",
+        "latitude": 22.3584978,
+        "longitude": 114.1050917
+    },
+    {
+        "line": "AEL",
+        "line_name": "Airport Express",
+        "sta": "AIR",
+        "sta_name": "Airport",
+        "latitude": 22.3158674,
+        "longitude": 113.931696
+    },
+    {
+        "line": "AEL",
+        "line_name": "Airport Express",
+        "sta": "AWE",
+        "sta_name": "AsiaWorld Expo",
+        "latitude": 22.3208341,
+        "longitude": 113.9392586
+    },
+    {
+        "line": "TCL",
+        "line_name": "Tung Chung Line",
+        "sta": "HOK",
+        "sta_name": "Hong Kong",
         "latitude": 22.2846755,
         "longitude": 114.1580141
     },
     {
         "line": "TCL",
+        "line_name": "Tung Chung Line",
         "sta": "KOW",
-        "name": "Kowloon",
+        "sta_name": "Kowloon",
         "latitude": 22.3042874,
         "longitude": 114.1613137
+    },
+    {
+        "line": "TCL",
+        "line_name": "Tung Chung Line",
+        "sta": "OLY",
+        "sta_name": "Olympic",
+        "latitude": 22.3178432,
+        "longitude": 114.1575554
+    },
+    {
+        "line": "TCL",
+        "line_name": "Tung Chung Line",
+        "sta": "NAC",
+        "sta_name": "Nam Cheong",
+        "latitude": 22.3267769,
+        "longitude": 114.1434016
+    },
+    {
+        "line": "TCL",
+        "line_name": "Tung Chung Line",
+        "sta": "LAK",
+        "sta_name": "Lai King",
+        "latitude": 22.348416,
+        "longitude": 114.1235807
+    },
+    {
+        "line": "TCL",
+        "line_name": "Tung Chung Line",
+        "sta": "TSY",
+        "sta_name": "Tsing Yi",
+        "latitude": 22.3584978,
+        "longitude": 114.1050917
+    },
+    {
+        "line": "TCL",
+        "line_name": "Tung Chung Line",
+        "sta": "SUN",
+        "sta_name": "Sunny Bay",
+        "latitude": 22.331731,
+        "longitude": 114.0263804
+    },
+    {
+        "line": "TCL",
+        "line_name": "Tung Chung Line",
+        "sta": "TUC",
+        "sta_name": "Tung Chung",
+        "latitude": 22.289255,
+        "longitude": 113.9388555
     }
 ]
