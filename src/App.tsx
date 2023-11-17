@@ -87,13 +87,13 @@ function App() {
   }
 
   function getNearestStation() {
-    if(coords === null)
+    if(userCoords === null)
       return ""
     
     let min:number = Number.POSITIVE_INFINITY;
     let nearestStation:string = "";
     mtrLoction.forEach(({sta, latitude, longitude}) => {
-      const current = getDistance(coords[0], coords[1], latitude, longitude)
+      const current = getDistance(userCoords[0], userCoords[1], latitude, longitude)
       if(current < min) {
         min = current;
         nearestStation = sta;
