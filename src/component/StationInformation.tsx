@@ -64,7 +64,7 @@ function StatinoInformation({ sta }: NextStaionProps){
       }
   
       checkEstimateTime(lineList[0].line, selectedSta).then(setArrivalData)
-    },[])
+    },[checkEstimateTime])
     
     function getStationNameFromStationID(stationID: string) {
       return mtrLoction.find(({ sta }) => {
