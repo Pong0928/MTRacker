@@ -44,6 +44,33 @@ function StatinoInformation({ sta }: NextStaionProps){
     const [isMultipeLines, setIsMultipeLine] = useState(false)
     const [LinesData, setLinesData] = useState<StationData[]>([])
     const [arrivalData, setArrivalData] = useState<ArrivalData>()
+    
+    const checkEstimateTime = useCallback((line: string, sta: string) => {
+      return fetch(`https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=${line}&sta=${sta}`)
+        .then((res) => res.json())
+        .then((res) => {
+          let x = Object.values(res.data)[0] as MTRApiData;
+          let arrivalData: ArrivalData = {
+              sta,
+              down_dest: null,
+              down_estimate_time: 0,
+              up_dest: null,
+              up_estimate_time: 0
+          };
+  
+          if(x.UP !== undefined) {
+            arrivalData.up_dest = getStationNameFromStationID(x.UP[0].dest)
+            arrivalData.up_estimate_time = Math.round((+new Date(x.UP[0].time) - +new Date(x.curr_time)) / 1000 / 60)
+          }
+  
+          if(x.DOWN !== undefined) {
+            arrivalData.down_dest = getStationNameFromStationID(x.DOWN[0].dest)
+            arrivalData.down_estimate_time = Math.round((+new Date(x.DOWN[0].time) - +new Date(x.curr_time)) / 1000 / 60)
+          }
+  
+          return arrivalData
+        })
+    }, [])
 
     const checkLineQuantity = useCallback((selectedSta:string) => {
       let lineList: Array<StationData> = mtrLoction.filter(({ sta }) => sta === selectedSta)
@@ -70,33 +97,6 @@ function StatinoInformation({ sta }: NextStaionProps){
       return mtrLoction.find(({ sta }) => {
         return stationID === sta
       })?.sta_name ?? null
-    }
-    
-    function checkEstimateTime(line: string, sta: string) {
-      return fetch(`https://rt.data.gov.hk/v1/transport/mtr/getSchedule.php?line=${line}&sta=${sta}`)
-        .then((res) => res.json())
-        .then((res) => {
-          let x = Object.values(res.data)[0] as MTRApiData;
-          let arrivalData: ArrivalData = {
-              sta,
-              down_dest: null,
-              down_estimate_time: 0,
-              up_dest: null,
-              up_estimate_time: 0
-          };
-  
-          if(x.UP !== undefined) {
-            arrivalData.up_dest = getStationNameFromStationID(x.UP[0].dest)
-            arrivalData.up_estimate_time = Math.round((+new Date(x.UP[0].time) - +new Date(x.curr_time)) / 1000 / 60)
-          }
-  
-          if(x.DOWN !== undefined) {
-            arrivalData.down_dest = getStationNameFromStationID(x.DOWN[0].dest)
-            arrivalData.down_estimate_time = Math.round((+new Date(x.DOWN[0].time) - +new Date(x.curr_time)) / 1000 / 60)
-          }
-  
-          return arrivalData
-        })
     }
 
     useEffect(() => {
