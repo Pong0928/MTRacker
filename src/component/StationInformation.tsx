@@ -102,7 +102,7 @@ function StatinoInformation({ sta }: NextStaionProps){
     useEffect(() => 
     {
       checkLineQuantity(sta);
-    },[])
+    })
 
     return (
         <div className='w-full'>
