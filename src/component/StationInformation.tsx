@@ -45,7 +45,7 @@ function StatinoInformation({ sta }: NextStaionProps){
     const [LinesData, setLinesData] = useState<StationData[]>([])
     const [arrivalData, setArrivalData] = useState<ArrivalData>()
 
-    function checkLineQuantity(selectedSta:string) {
+    const checkLineQuantity = function (selectedSta:string) {
       let lineList: Array<StationData> = mtrLoction.filter(({ sta }) => sta === selectedSta)
   
       setArrivalData({
@@ -99,8 +99,7 @@ function StatinoInformation({ sta }: NextStaionProps){
         })
     }
 
-    useEffect(() => 
-    {
+    useEffect(() => {
       checkLineQuantity(sta);
     },[checkLineQuantity, sta])
 
