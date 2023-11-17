@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import 'leaflet-defaulticon-compatibility';
 import { LatLngTuple } from 'leaflet';
 import mtrLoction from '../src/json/mtr_location.json'; 
-import NextStation from './component/NearestStation';
-import StatinoInformation from './component/StationInformation';
+import NearestStation from './component/NearestStation';
+import StationInformation from './component/StationInformation';
+import SetViewOnClick from './component/SetViewOnClick';
 
 export interface StationData {
   line: string
@@ -45,16 +46,33 @@ export interface MTRApiData {
 
 function App() {
   const [coords, setCoords] = useState<LatLngTuple | null>(null)
-
+  const [userCoords, setuserCoords] = useState<LatLngTuple | null>(null)
+  const stationsByLine: { [key: string]: StationData[] } = {}
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function(position) {
       const { latitude, longitude } = position.coords 
       setCoords([latitude, longitude])
+      setuserCoords([latitude, longitude])
     });
   }, [])
 
+  mtrLoction.forEach((station) => {
+    const { line_name } = station;
+    if (!stationsByLine[line_name]) {
+        stationsByLine[line_name] = [];
+    }
+    stationsByLine[line_name].push(station);
+  });
 
+  function changeCenter(laNlo: string) {
+    const newCoords = laNlo.split(",");
+    const lat = parseFloat(newCoords[0]);
+    const lon = parseFloat(newCoords[1]);
+    setCoords([lat, lon]);
+
+    console.log(coords);
+  }
 
   function getDistance(la1:number, lo1:number, la2:number, lo2:number) {
     let La1 = la1 * Math.PI / 180.0;
@@ -87,25 +105,46 @@ function App() {
 
   return (
     <div className='h-screen relative overflow-hidden'>
-      {coords && (
+      {coords && userCoords && (
         <>
         <MapContainer center={coords} zoom={13} scrollWheelZoom={true} className='w-screen h-screen z-0'>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={coords}/>
+          {/* Marker for User */}
+          <Marker position={userCoords}/>
           {
             mtrLoction.map(({ latitude, longitude, line, sta, sta_name}) => (
               <Marker position={[latitude, longitude]}>
                 <Popup className='w-96'>
-                  <StatinoInformation sta={sta}/>
+                  <StationInformation sta={sta}/>
                 </Popup>
               </Marker>
             ))
           }
+          {/* redirect function */}
+          <SetViewOnClick coords={coords} />
         </MapContainer>
-        <NextStation sta={getNearestStation()} />
+        <div className="absolute top-28 left-2 ml-5">
+            <div className='rounded-lg w-96 text-center'>
+                <p className='text-2xl'>Find Station</p> 
+                <select className='border border-gray-300 text-sm rounded-lg w-full p-2.5 focus:ring-blue-500 focus:border-blue-500' onChange={(e) => changeCenter(e.target.value)}>
+                {
+                    Object.entries(stationsByLine).map(([lineName, stations]) => (
+                        <optgroup key={lineName} label={lineName}>
+                            {stations.map((station) => (
+                            <option key={station.sta} value={station.latitude+","+station.longitude}>
+                                {station.sta_name}
+                            </option>
+                            ))}
+                        </optgroup>
+                    ))
+                }
+                </select>
+            </div>
+        </div>
+        <NearestStation sta={getNearestStation()} />
         </>
       )}
     </div>
