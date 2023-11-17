@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import mtrLoction from '../../src/json/mtr_location.json'; 
 
 interface NextStaionProps {
@@ -45,7 +45,7 @@ function StatinoInformation({ sta }: NextStaionProps){
     const [LinesData, setLinesData] = useState<StationData[]>([])
     const [arrivalData, setArrivalData] = useState<ArrivalData>()
 
-    const checkLineQuantity = function (selectedSta:string) {
+    const checkLineQuantity = useCallback((selectedSta:string) => {
       let lineList: Array<StationData> = mtrLoction.filter(({ sta }) => sta === selectedSta)
   
       setArrivalData({
@@ -64,7 +64,7 @@ function StatinoInformation({ sta }: NextStaionProps){
       }
   
       checkEstimateTime(lineList[0].line, selectedSta).then(setArrivalData)
-    }
+    },[])
     
     function getStationNameFromStationID(stationID: string) {
       return mtrLoction.find(({ sta }) => {
@@ -101,7 +101,7 @@ function StatinoInformation({ sta }: NextStaionProps){
 
     useEffect(() => {
       checkLineQuantity(sta);
-    },[checkLineQuantity, sta])
+    },[sta])
 
     return (
         <div className='w-full'>
