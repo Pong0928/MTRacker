@@ -9,7 +9,7 @@ const SetViewOnClick: React.FC<SetViewOnClickProps> = ({ coords }) => {
   const map = useMap();
 
   // Set the view of the map to the specified coordinates when the component is rendered
-  map.setView(coords, 12);
+  map.setView(coords, 15);
 
   // The component doesn't render anything (returns null)
   return null;
