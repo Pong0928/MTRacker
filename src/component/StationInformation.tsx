@@ -39,7 +39,7 @@ export interface MTRApiData {
   sys_time: string;
 }
 
-function StatinoInformation({ sta }: NextStaionProps) {
+function StationInformation({ sta }: NextStaionProps) {
   const [isMultipeLines, setIsMultipeLine] = useState(false);
   const [LinesData, setLinesData] = useState<StationData[]>([]);
   const [arrivalData, setArrivalData] = useState<ArrivalData>();
@@ -227,4 +227,4 @@ function StatinoInformation({ sta }: NextStaionProps) {
   );
 }
 
-export default StatinoInformation;
+export default StationInformation;
