@@ -103,6 +103,13 @@ function App() {
     return nearestStation
   }
 
+  function getNearestStationCoord() {
+    if(userCoords === null)
+      return ""
+
+    return userCoords[0] + "," + userCoords[1];
+  }
+
   return (
     <div className='h-screen relative overflow-hidden'>
       {coords && userCoords && (
@@ -144,7 +151,7 @@ function App() {
                 </select>
             </div>
         </div>
-        <NearestStation sta={getNearestStation()} />
+        <NearestStation sta={getNearestStation()} onShow={() => changeCenter(getNearestStationCoord())}/>
         </>
       )}
     </div>

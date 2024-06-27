@@ -2,17 +2,25 @@ import { useState } from "react";
 import StatinoInformation from "./StationInformation";
 
 interface NearestStationProps {
-  sta: string;
+  sta: string,
+  onShow: any
 }
 
-function NearestStation({ sta }: NearestStationProps): JSX.Element {
+function NearestStation({ sta, onShow }: NearestStationProps): JSX.Element {
   const [show, setShow] = useState(false);
+
+  function handleClick() {
+    setShow(!show);
+    if(!show) {
+      onShow();
+    }
+  }
 
   return (
     <>
       <div className="absolute bottom-10 right-2 mr-5">
         <button
-          onClick={() => setShow(!show)}
+          onClick={handleClick}
           type="button"
           className="flex justify-center items-center text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-xl w-12 h-12"
         >
